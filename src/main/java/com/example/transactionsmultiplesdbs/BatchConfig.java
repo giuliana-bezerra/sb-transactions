@@ -14,6 +14,7 @@ import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourc
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
@@ -59,7 +60,7 @@ public class BatchConfig {
   }
 
   @Bean
-  public ItemWriter<Pessoa> writer(DataSource dataSource) {
+  public ItemWriter<Pessoa> writer(@Qualifier("appDS") DataSource dataSource) {
     return new JdbcBatchItemWriterBuilder<Pessoa>()
         .dataSource(dataSource)
         .sql(
